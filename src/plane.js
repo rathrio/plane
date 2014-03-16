@@ -1,8 +1,6 @@
 var container, stats;
 
-var camera, scene, renderer;
-
-var plane;
+var SC, renderer;
 
 var targetRotation = 0;
 var targetRotationOnMouseDown = 0;
@@ -17,6 +15,8 @@ init();
 animate();
 
 function init() {
+	
+	SC = new SceneContainer();
 
 	container = document.createElement( 'div' );
 	document.body.appendChild( container );
@@ -29,21 +29,22 @@ function init() {
 	info.innerHTML = 'PLANE MOTHAFUCKA';
 	container.appendChild( info );
 
-	camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
-	camera.position.y = 150;
-	camera.position.z = 500;
 
-	scene = new THREE.Scene();
+	// camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
+	// camera.position.y = 150;
+	// camera.position.z = 500;
 
-	var planeTexture = THREE.ImageUtils.loadTexture('textures/grass.jpg');
+	// scene = new THREE.Scene();
 
-	var geometry = new THREE.PlaneGeometry( 200, 200 );
-	geometry.applyMatrix( new THREE.Matrix4().makeRotationX( - Math.PI / 2 ) );
-
-	var material = new THREE.MeshLambertMaterial( { map: planeTexture, color: 0xe0e0e0, overdraw: 0.5 } );
-
-	plane = new THREE.Mesh( geometry, material );
-	scene.add( plane );
+	// var planeTexture = THREE.ImageUtils.loadTexture('textures/grass.jpg');
+	// 
+	// var geometry = new THREE.PlaneGeometry( 200, 200 );
+	// geometry.applyMatrix( new THREE.Matrix4().makeRotationX( - Math.PI / 2 ) );
+	// 
+	// var material = new THREE.MeshLambertMaterial( { map: planeTexture, color: 0xe0e0e0, overdraw: 0.5 } );
+	// 
+	// plane = new THREE.Mesh( geometry, material );
+	// scene.add( plane );
 
 	renderer = new THREE.CanvasRenderer();
 	renderer.setSize( window.innerWidth, window.innerHeight );
@@ -56,10 +57,6 @@ function init() {
 	container.appendChild( stats.domElement );
 
 	document.addEventListener( 'mousedown', onDocumentMouseDown, false );
-	document.addEventListener( 'touchstart', onDocumentTouchStart, false );
-	document.addEventListener( 'touchmove', onDocumentTouchMove, false );
-
-	//
 
 	window.addEventListener( 'resize', onWindowResize, false );
 
@@ -70,14 +67,12 @@ function onWindowResize() {
 	windowHalfX = window.innerWidth / 2;
 	windowHalfY = window.innerHeight / 2;
 
-	camera.aspect = window.innerWidth / window.innerHeight;
-	camera.updateProjectionMatrix();
+	SC.camera.aspect = window.innerWidth / window.innerHeight;
+	SC.camera.updateProjectionMatrix();
 
 	renderer.setSize( window.innerWidth, window.innerHeight );
 
 }
-
-//
 
 function onDocumentMouseDown( event ) {
 
@@ -116,33 +111,6 @@ function onDocumentMouseOut( event ) {
 
 }
 
-function onDocumentTouchStart( event ) {
-
-	if ( event.touches.length === 1 ) {
-
-		event.preventDefault();
-
-		mouseXOnMouseDown = event.touches[ 0 ].pageX - windowHalfX;
-		targetRotationOnMouseDown = targetRotation;
-
-	}
-
-}
-
-function onDocumentTouchMove( event ) {
-
-	if ( event.touches.length === 1 ) {
-
-		event.preventDefault();
-
-		mouseX = event.touches[ 0 ].pageX - windowHalfX;
-		targetRotation = targetRotationOnMouseDown + ( mouseX - mouseXOnMouseDown ) * 0.05;
-
-	}
-
-}
-
-//
 
 function animate() {
 
@@ -155,7 +123,7 @@ function animate() {
 
 function render() {
 
-	plane.rotation.y += ( targetRotation - plane.rotation.y ) * 0.05;
-	renderer.render( scene, camera );
+	SC.plane.rotation.y += ( targetRotation - SC.plane.rotation.y ) * 0.05;
+	renderer.render( SC.scene, SC.camera );
 
 }
