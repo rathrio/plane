@@ -1,4 +1,4 @@
-use Rack::Static, :urls => ["/textures", "/lib", "/src", "/shaders"]
+use Rack::Static, :urls => ["/textures", "/lib", "/src", "/shaders", "/src/meshes"]
 
 run lambda { |env|
   [
