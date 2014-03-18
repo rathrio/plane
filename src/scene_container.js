@@ -12,29 +12,31 @@ function SceneContainer() {
   var directionalLight = new THREE.DirectionalLight(0xffffff);
   directionalLight.position.set(1, 1, 1).normalize();
   
-  // lookup code
-  // var lambertiaMaterial = new THREE.MeshLambertMaterial( { map: planeTexture, color: 0xe0e0e0, overdraw: 0.5 } );
-  // material
-  var defaultWithTexture = Plane.DefaultShader;
+  // define texture and other material constant
+  var textureShader = Plane.TextureShader;
+  var defaultShader = Plane.DefaultShader;
   var planeTexture = THREE.ImageUtils.loadTexture('textures/grass.jpg');
-  defaultWithTexture.uniforms = {
+  textureShader.uniforms = {
       texture: { type: "t", value: planeTexture }
   };
-  var material = new THREE.ShaderMaterial(defaultWithTexture);
+  var grass = new THREE.ShaderMaterial(textureShader);
+  var red = new THREE.ShaderMaterial(defaultShader);
   
-  // plane
-  var geometry = new THREE.PlaneGeometry( 200, 200 );
+  // plane geometry
+  var geometry = new THREE.PlaneGeometry( 1000, 1000 );
   geometry.applyMatrix( new THREE.Matrix4().makeRotationX( - Math.PI / 2 ) );
-  this.plane = new THREE.Mesh( geometry, material );
+  this.plane = new THREE.Mesh( geometry, grass );
   
-  // cylinder
-  var cylinder_geometry = new THREE.CylinderGeometry(100, 100, 400, 50, 50, false)
+  // cylinder geometry
+  var cylinder_geometry = new THREE.CylinderGeometry(40, 40, 400, 50, 50, false)
   cylinder_geometry.applyMatrix( new THREE.Matrix4().makeRotationX( - Math.PI / 5 ) );
-  var cylinder = new THREE.Mesh(cylinder_geometry, material);
+  var cylinder = new THREE.Mesh(cylinder_geometry, red);
   
+  // build up scene graph
 	this.group.add( this.plane );
   this.group.add( cylinder );
 	
+	// assign primitives to scene
 	this.scene.add(ambientLight);
   this.scene.add(directionalLight);
 	this.scene.add(this.group);
