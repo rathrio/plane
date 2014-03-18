@@ -1,4 +1,3 @@
-
 var Shape = function() {
   var prototype.shader = "";
   var prototype.material = "";
