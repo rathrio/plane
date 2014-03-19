@@ -1,4 +1,4 @@
-Plane = {};
+var Plane = Plane || {};
 Plane.TextureShader = {
   uniforms: {},
   attributes: {},
