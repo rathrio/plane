@@ -105,7 +105,7 @@ function animate() {
 	stats.update();
 }
 
-function render() {
-	SC.plane.rotation.y += ( targetRotation - SC.plane.rotation.y ) * 0.05;
+function render() {  
+	SC.group.rotation.y += ( targetRotation - SC.group.rotation.y ) * 0.05;
 	renderer.render( SC.scene, SC.camera );
 }
