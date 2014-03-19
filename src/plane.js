@@ -34,13 +34,17 @@ function init() {
 }
 
 function onKeyDown( event) {
+  var T = new THREE.Matrix4();
+  T.identity();
   var key = event.which ? event.which : event.keyCode;
   switch(key) {
     case 87: // w key
       // move camera foreward
+      T.makeTranslation(1, 1, -10);
       break;
     case 83: // s key
       // move camera backward
+      T.makeTranslation(1, 1, 10);
       break;
     case 68: // d key
       // rotation (uhrzeigersinn) camera um z-achse 
@@ -55,6 +59,8 @@ function onKeyDown( event) {
       // move down
       break;
   }
+  SC.updateCamera(T);
+  
   // keep this for debugging purposes
   console.log(key); 
 }

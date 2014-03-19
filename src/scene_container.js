@@ -12,4 +12,17 @@ function SceneContainer() {
   var material = new THREE.ShaderMaterial(Plane.DefaultShader);
 	this.plane = new THREE.Mesh( geometry, material );
 	this.scene.add( this.plane );
+	
+	// update position of our camera
+  // T is tranformation matrix
+  this.updateCamera = function(T){
+    var cPos3f = this.camera.position;
+    var cPos4f = new THREE.Vector4( cPos3f.x, cPos3f.y, cPos3f.z, 1.0 );    
+    var newCPos4f = cPos4f.applyMatrix4( T );
+    this.camera.position.x = newCPos4f.x;
+    this.camera.position.y = newCPos4f.y;
+    this.camera.position.z = newCPos4f.z;
+  };
 }
+
+
