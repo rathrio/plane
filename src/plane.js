@@ -30,6 +30,33 @@ function init() {
 	container.appendChild( stats.domElement );
 	document.addEventListener( 'mousedown', onDocumentMouseDown, false );
 	window.addEventListener( 'resize', onWindowResize, false );
+	window.addEventListener( 'keydown', onKeyDown, false);
+}
+
+function onKeyDown( event) {
+  var key = event.which ? event.which : event.keyCode;
+  switch(key) {
+    case 87: // w key
+      // move camera foreward
+      break;
+    case 83: // s key
+      // move camera backward
+      break;
+    case 68: // d key
+      // rotation (uhrzeigersinn) camera um z-achse 
+      break;
+    case 65: // a key
+      // rotation (ccw) camera um z-achse
+      break;
+    case 32: // space key
+      // move up
+      break;
+    case 16: // shift
+      // move down
+      break;
+  }
+  // keep this for debugging purposes
+  console.log(key); 
 }
 
 function onWindowResize() {
