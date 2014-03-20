@@ -40,6 +40,7 @@ function onKeyDown( event) {
       // move camera foreward
       break;
     case 83: // s key
+      debugger;
       // move camera backward
       break;
     case 68: // d key
@@ -100,6 +101,7 @@ function animate() {
 }
 
 function render() {  
+  // debugger;
 	SC.group.rotation.y += ( targetRotation - SC.group.rotation.y ) * 0.05;
 	renderer.render( SC.scene, SC.camera );
 }

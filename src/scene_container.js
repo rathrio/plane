@@ -41,25 +41,23 @@ function SceneContainer() {
   cylinder_geometry.applyMatrix( new THREE.Matrix4().makeRotationX( - Math.PI / 5 ) );
   var cylinder = new THREE.Mesh(cylinder_geometry, red);
 
-  // apple
+  // obj loader  
   var loader = new THREE.OBJLoader();
   var g = this.group;
-  loader.load( 'obj/apple.obj', function ( object ) {
+  loader.load( "obj/teapot.obj", function ( object ) {
     object.traverse( function ( child ) {
-
       if ( child instanceof THREE.Mesh ) {
-
-        child.material.map = planeTexture;
-
+        child.material = red;
       }
-
     } );
-
+    
+    var m1 = new THREE.Matrix4();
+    m1.identity();
+    m1.multiplyScalar(15);
+    object.applyMatrix(m1);
     g.add(object);
     console.log("Added apple");
   } );
-
-
 
   // build up scene graph
   this.group.add( this.plane );
