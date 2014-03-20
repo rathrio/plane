@@ -51,10 +51,11 @@ function SceneContainer() {
       }
     } );
     
-    var m1 = new THREE.Matrix4();
-    m1.identity();
-    m1.multiplyScalar(15);
-    object.applyMatrix(m1);
+    // rescale mesh
+    var T = new THREE.Matrix4();
+    T.identity();
+    T.multiplyScalar(15);
+    object.applyMatrix(T);
     g.add(object);
     console.log("Added apple");
   } );
