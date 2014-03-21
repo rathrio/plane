@@ -6,10 +6,12 @@ function SceneContainer() {
 	this.cameraSphere = new THREE.Mesh(new THREE.SphereGeometry(150, 100, 100), new THREE.MeshNormalMaterial());
   this.cameraSphere.overdraw = true;
 	
+	
 	// camera setup
 	this.camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
 	this.camera.position.y = 150;
 	this.camera.position.z = 500;
+	this.cameraSphere.add( this.camera );
    
   // directional lighting
   var ambientLight = new THREE.AmbientLight(0x222222);
@@ -49,11 +51,6 @@ function SceneContainer() {
 	// update position of our camera
   // T is tranformation matrix
   this.updateCamera = function(T){
-    var cPos3f = this.camera.position;
-    var cPos4f = new THREE.Vector4( cPos3f.x, cPos3f.y, cPos3f.z, 1.0 );    
-    var newCPos4f = cPos4f.applyMatrix4( T );
-    this.camera.position.x = newCPos4f.x;
-    this.camera.position.y = newCPos4f.y;
-    this.camera.position.z = newCPos4f.z;
+    this.cameraSphere.applyMatrix(T);
   };
 }

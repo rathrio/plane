@@ -49,15 +49,9 @@ function onKeyDown( event) {
       break;
     case 68: // d key
       // rotation (uhrzeigersinn) camera um z-achse 
-      LookAtpoint.applyMatrix4( SC.camera.matrixWorld );
-      LookAtpoint.x += 0.05;
-      SC.camera.lookAt( LookAtpoint );
       break;
     case 65: // a key
       // rotation (ccw) camera um z-achse
-      LookAtpoint.applyMatrix4( SC.camera.matrixWorld );
-      LookAtpoint.x -= 0.05;
-      SC.camera.lookAt( LookAtpoint );
       break;
     case 32: // space key
       // move up
