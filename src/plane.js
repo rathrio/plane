@@ -41,7 +41,23 @@ function onKeyDown( event) {
   switch(key) {
     case 87: // w key
       // move camera foreward
-      T.makeTranslation(0, 0, -10);
+      
+      look = SC.camera.matrix.multiplyVector3(LookAtpoint);
+      objLook = SC.cameraSphere.matrix.multiplyVector3(new THREE.Vector3(0,0,-1));
+      console.log(objLook.x, objLook.y, objLook.z);
+      // refZ.dot(objLook)
+      // dot(x,y) / ||x||*||y|| = cos(phi_xy)
+      // use cos_phi in order to comput a rotation matrix 
+      // which will be applied onto stepVector.
+      // rotate stepVector the same amoung like (objLook) got
+      var refZ = new THREE.Vector3(0,0,1);
+      var setpVector = new THREE.Vector3(0,0,-10);
+      
+      T.makeTranslation(setpVector.x, setpVector.y, setpVector.z);
+
+      // debugger;
+      
+      // Console.log(cameraSphere)
       break;
     case 83: // s key
       // move camera backward
@@ -52,6 +68,7 @@ function onKeyDown( event) {
       break;
     case 65: // a key
       // rotation (ccw) camera um z-achse
+      T.makeRotationY( Math.PI / 120 );
       break;
     case 32: // space key
       // move up
