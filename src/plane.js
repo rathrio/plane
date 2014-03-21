@@ -34,29 +34,38 @@ function init() {
 }
 
 function onKeyDown( event) {
+  var LookAtpoint = new THREE.Vector3( 0, 0, -1);
   var T = new THREE.Matrix4();
   T.identity();
   var key = event.which ? event.which : event.keyCode;
   switch(key) {
     case 87: // w key
       // move camera foreward
-      T.makeTranslation(1, 1, -10);
+      T.makeTranslation(0, 0, -10);
       break;
     case 83: // s key
       // move camera backward
-      T.makeTranslation(1, 1, 10);
+      T.makeTranslation(0, 0, 10);
       break;
     case 68: // d key
       // rotation (uhrzeigersinn) camera um z-achse 
+      LookAtpoint.applyMatrix4( SC.camera.matrixWorld );
+      LookAtpoint.x += 0.05;
+      SC.camera.lookAt( LookAtpoint );
       break;
     case 65: // a key
       // rotation (ccw) camera um z-achse
+      LookAtpoint.applyMatrix4( SC.camera.matrixWorld );
+      LookAtpoint.x -= 0.05;
+      SC.camera.lookAt( LookAtpoint );
       break;
     case 32: // space key
       // move up
+      T.makeTranslation(0, 10, 0);
       break;
     case 16: // shift
       // move down
+      T.makeTranslation(0, -10, 0);
       break;
   }
   SC.updateCamera(T);
