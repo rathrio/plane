@@ -107,11 +107,19 @@ function onKeyDown( event) {
       // move down
       T.makeTranslation(0, -10, 0);
       break;
+    case 49: // select moving camera
+      // press '1'
+      SC.setCameraFlag(1);
+      break;
+   case 50: // select static camera
+      // press '2'
+      SC.setCameraFlag(2);
+      break;
   }
   SC.updateCamera(T);
   
   // keep this for debugging purposes
-  // console.log(key); 
+  console.log(key); 
 }
 
 function onWindowResize() {
@@ -156,5 +164,5 @@ function animate() {
 
 function render() {  
 	SC.group.rotation.y += ( targetRotation - SC.group.rotation.y ) * 0.05;
-	renderer.render( SC.scene, SC.camera );
+	renderer.render( SC.scene, SC.getSelectedCamera() );
 }
